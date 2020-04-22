@@ -36,10 +36,10 @@ class AdminActionsController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("Vous n'êtes pas autorisés à accéder à cette page!", Response::HTTP_FORBIDDEN);
         }
-
+//delete event
         $em = $this->getDoctrine()->getManager();
-        $event = $em->getRepository('EventBundle:Evenement')->find($id);
-        $em->remove($event);
+        $eve = $em->getRepository('EventBundle:Evenement')->find($id);
+        $em->remove($eve);
         $em->flush();
 
         return $this->redirectToRoute('evenement_admin_index');
