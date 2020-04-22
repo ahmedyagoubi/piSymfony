@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row page-top">
+        <div class="col-md-10 mx-auto">
+            <h1>All partnerships</h1>
+            <p class="text-muted">Please choose a type of partnership.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" style="padding-bottom: 100px; margin: 0 auto">
+            {% for c in categories %}
+                <div class="col-md-3 card "  style="margin-right: 1rem;">
+                    {% if c.cover %}
+                        <img class="card-img-top" src="{{ asset('uploads/categoriePartenariat/photo/' ~ c.cover) }}"/>
+                    {% else %}
+                        <img  class="card-img-top"  src="{{ asset('assets/img/NA.png') }}"/>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ c.libelle }}</h5>
+                        <p class="card-text">{{ c.description  | raw }}.</p>
+                        {% if app.user %}
+                            <a href="{{ path('choosePartnership', {'id': c.id }) }}" class="btn btn-primary">
+                                Choose
+                            </a>
+                        {%  else  %}
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Choose
+                            </button>
+                        {%  endif %}
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">You are not logged in </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Please log-in
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">
+                        <a href="{{ path('fos_user_security_login') }}" class="btn btn-primary">Loggin</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

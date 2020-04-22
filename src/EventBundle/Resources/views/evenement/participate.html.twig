@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="col-lg-12">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('evenement_index') }}">Events</a></li>
+                <li class="breadcrumb-item">Participation</li>
+            </ol>
+        </nav>
+        <div class="row page-top">
+            <div class="col-md-10 mx-auto">
+                <h1>Participation</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <form method="get" action="https://demo.bootstrapious.com/hunter/2-0-1/checkout1.html">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="2">event</th>
+                        <th>creator</th>
+                        <th>State</th>
+                        <th>creation Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for e in events %}
+
+                        <tr>
+                            <td><a href="{{ path('evenement_detail',{id:e.evenement.id}) }}"><img width="50px" src="{{ asset('eventsImage/' ~ e.evenement.image) }}" alt="White Blouse Armani"></a></td>
+                            <td><a href="{{ path('evenement_detail',{id:e.evenement.id}) }}">{{ e.evenement.nomEvenement }}</a></td>
+                            <td>{{ e.userid }}</td>
+                            {% if e.confirmation == 0 %}
+                                <td>Waiting</td>
+
+                            {% else %}
+                                <td>Accepted</td>
+
+                            {% endif %}
+                            <td>{{ e.dateInscrit|date() }}</td>
+
+                            <td>
+                                {% if app.user == e.userid %}
+                                    <a href="{{ path ('Refuse_Participation',{'id':e.id}) }}">cancel <i class="fa fa-trash-o"></i></a>
+                                {% elseif e.evenement.responsable == app.user%}
+                                    {% if e.confirmation == 0  %}
+                                        {% if e.evenement.Nbreplace > 0 %}
+                                            <a href="{{ path ('Accept_participate',{'id':e.id}) }}"><i class="fa fa-check"></i></a>
+                                            {% else %}
+                                                <a>you reach maximum places</a>
+                                        {% endif %}
+                                        <a href="{{ path ('Refuse_Participation',{'id':e.id}) }}"><i class="fa fa-trash-o"></i></a>
+                                    {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

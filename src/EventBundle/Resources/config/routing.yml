@@ -1,0 +1,79 @@
+evenement_index:
+  path:     /
+  defaults: { _controller: EventBundle:Evenement:index }
+
+evenement_admin_index:
+  path:     /admin/events
+  defaults: { _controller: EventBundle:AdminActions:indexEvents }
+
+evenement_admin_delete:
+  path:     /admin/delete/{id}
+  defaults: { _controller: EventBundle:AdminActions:delete }
+
+evenement_detail:
+  path:     /detail/{id}
+  defaults: { _controller: EventBundle:Evenement:detail }
+
+event_supprimerpage:
+  path:     /supprimer/{id}
+  defaults: { _controller: EventBundle:Evenement:delete }
+
+date:
+  path:     /date
+  defaults: { _controller: EventBundle:Evenement:modify }
+
+evenement_new:
+  path:     /new
+  defaults: { _controller: EventBundle:Evenement:new }
+
+
+participer:
+  path:     /participer/{id}
+  defaults: { _controller: EventBundle:Evenement:participer }
+
+list_participate:
+  path:     /participate/{id}
+  defaults: { _controller: EventBundle:Evenement:listParticipate}
+
+MyParticipate:
+  path:     /MyParticipate
+  defaults: { _controller: EventBundle:Evenement:MyParticipate}
+
+Accept_participate:
+  path:     /accept/{id}
+  defaults: { _controller: EventBundle:Evenement:acceptParticipation}
+
+Refuse_Participation:
+  path:     /refuse/{id}
+  defaults: { _controller: EventBundle:Evenement:RefuseParticipation}
+
+
+edit_guide:
+  path:     /editguide/{id}
+  defaults: { _controller: EventBundle:Guide:editGuide }
+delete_guide:
+  path:     /deleteguide/{id}
+  defaults: { _controller: EventBundle:Guide:deleteGuide }
+create_guide:
+  path:     /createguide/{id}
+  defaults: { _controller: EventBundle:Guide:createGuide }
+
+list_guide:
+  path:     /listguide
+  defaults: { _controller: EventBundle:Guide:listGuide }
+
+
+pdf:
+  path:     /pdf
+  defaults: { _controller: EventBundle:Evenement:pdf}
+
+envoyerMail:
+  path:     /envoyerMail
+  defaults: { _controller: EventBundle:Evenement:envoyerMail}
+
+
+
+
+
+
+

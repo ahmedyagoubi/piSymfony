@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+{% block head %}{% endblock %}
+<head>
+    <link rel="stylesheet" href="{{ asset ('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{{ asset ('assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <!-- Google fonts - Montserrat for headings, Raleway for copy-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="{{ asset ('assets/vendor/owl.carousel/assets/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset ('assets/vendor/owl.carousel/assets/owl.theme.default.css') }}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{{ asset ('assets/css/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{{ asset ('assets/css/custom.css') }}">
+    {% block stylesheets %}
+    {% endblock %}
+</head>
+
+
+<body class="fixed-header dashboard">
+<!-- BEGIN SIDEBPANEL-->
+
+<div class="container ">
+
+    <nav class="page-sidebar" data-pages="sidebar">
+        <!-- BEGIN SIDEBAR MENU HEADER-->
+        <div class="sidebar-header">
+            <img style="margin-left:-15px;width: 70%;height: 80%;" src="{{ asset('assets/img/waller.png') }}" alt="logo"
+                 class="brand"
+                 data-src="{{ asset('assets/img/waller_blanc.png') }}" width="78" height="22">
+            <div class="sidebar-header-controls">
+                <button type="button" class="btn btn-link visible-lg-inline" data-toggle-pin="sidebar"><i
+                            class="fa fs-12"></i>
+                </button>
+            </div>
+        </div>
+        <!-- END SIDEBAR MENU HEADER-->
+        <!-- START SIDEBAR MENU -->
+        <div class="sidebar-menu">
+            <!-- BEGIN SIDEBAR MENU ITEMS-->
+
+            {% set currentPath = path(app.request.attributes.get('_route'),
+            app.request.attributes.get('_route_params')) %}
+
+            {#{{ dump(currentPath) }}#}
+            {#<ul class="menu-items">#}
+                {#<li class="m-t-30 ">#}
+                    {#<a href="{{ path('poste_index') }}" class="detailed">#}
+                        {#<span class="title">Postes</span>#}
+                    {#</a>#}
+                    {#<span class="{% if path('poste_index') == currentPath %}bg-success{% endif %} icon-thumbnail"><i class="pg-home"></i></span>#}
+                {#</li>#}
+                {#<li class="">#}
+                    {#<a href="{{ path('profile_index') }}" class="detailed">#}
+                        {#<span class="title">Profils</span>#}
+                    {#</a>#}
+                    {#<span class="{% if path('profile_index') == currentPath %}bg-success{% endif %} icon-thumbnail">Pr</span>#}
+                {#</li>#}
+                {#<li class="">#}
+                    {#<a href="{{ path('candidature_index') }}" class="detailed">#}
+                        {#<span class="title">Candidatures</span>#}
+                    {#</a>#}
+                    {#<span class="{% if path('candidature_index') == currentPath %}bg-success{% endif %} icon-thumbnail">C</span>#}
+                {#</li>#}
+
+                {#{% if is_granted('ROLE_ADMIN') %}    #}
+                    {#<li class="">#}
+                        {#<a href="{{ path('etape_index') }}">#}
+                            {#<span class="title">Etats</span>#}
+                        {#</a>#}
+                        {#<span class="{% if path('etape_index') == currentPath %}bg-success{% endif %} icon-thumbnail">E</span>#}
+                    {#</li>#}
+                    {#<li class="">#}
+                        {#<a href="{{ path('group_index') }}">#}
+                            {#<span class="title">Sociétés</span>#}
+                        {#</a>#}
+                        {#<span class=" icon-thumbnail">S</span>#}
+                    {#</li>#}
+                    {#<li class="">#}
+                        {#<a href="{{ path('users_index') }}">#}
+                            {#<span class="title">Utilisateur</span>#}
+                        {#</a>#}
+                        {#<span class=" icon-thumbnail">Reg</span>#}
+                    {#</li>#}
+                {#{% endif %}#}
+            {#</ul>#}
+            <div class="clearfix"></div>
+        </div>
+    </nav>
+
+    <div class="page-container">
+
+        <div class="header ">
+            <div class="container-fluid relative">
+                <!-- LEFT SIDE -->
+                <div class="pull-left full-height visible-sm visible-xs">
+                    <!-- START ACTION BAR -->
+                    <div class="header-inner">
+                        <a href="#"
+                           class="btn-link toggle-sidebar visible-sm-inline-block visible-xs-inline-block padding-5"
+                           data-toggle="sidebar">
+                            <span class="icon-set menu-hambuger"></span>
+                        </a>
+                    </div>
+                    <!-- END ACTION BAR -->
+                </div>
+                <div class="pull-center hidden-md hidden-lg">
+                    <div class="header-inner">
+                        <div class="brand inline">
+                            <img src="{{ asset('/assets/img/waller.png') }}" alt="logo"
+                                 data-src="{{ asset('/assets/img/waller.png') }}"
+                                 style="width:78px; height: 22px;">
+                        </div>
+                    </div>
+                </div>
+                <!-- RIGHT SIDE -->
+                <div class="pull-right full-height visible-sm visible-xs">
+                    <!-- START ACTION BAR -->
+                    <div class="header-inner">
+                        <a href="#" class="btn-link visible-sm-inline-block visible-xs-inline-block"
+                           data-toggle="quickview"
+                           data-toggle-element="#quickview">
+                            <span class="icon-set menu-hambuger-plus"></span>
+                        </a>
+                    </div>
+                    <!-- END ACTION BAR -->
+                </div>
+            </div>
+
+            <div class=" pull-left sm-table hidden-xs hidden-sm">
+                <div class="header-inner">
+                    <div class="brand inline">
+                        <img style="margin-left:40px;width: 60%;height: 50%;" src="{{ asset('assets/img/waller.png') }}"
+                             alt="logo" data-src="{{ asset('assets/img/waller.png') }}"
+                             data-src-retina="{{ asset('assets/img/waller.png') }}" width="78" height="22">
+                    </div>
+                    <a href="#" class="search-link" data-toggle="search"></a>
+                </div>
+            </div>
+
+            <div class=" pull-right">
+                <div class="visible-lg visible-md m-t-10">
+                    <div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
+                        <span class="semi-bold">{{ app.user.username }} </span> <span
+                                class="text-master">({{ app.user.email }}) </span>
+                    </div>
+                    <div class="dropdown pull-right">
+                        <button class="profile-dropdown-toggle" type="button"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="thumbnail-wrapper d32 circular inline m-t-5">
+                                    {#<img src="" alt="{{ app.user.imageLink }}"#}
+                                         {#data-src="{{ app.user.imageLink }}"#}
+                                         {#width="32" height="32">#}
+                                </span>
+                        </button>
+                        <ul class="dropdown-menu profile-dropdown" role="menu">
+                            {#<li><a href="#"><i class="pg-settings_small"></i> Settings</a>#}
+                            {#</li>#}
+                            {#<li><a href="#"><i class="pg-outdent"></i> Feedback</a>#}
+                            {#</li>#}
+                            {#<li><a href="#"><i class="pg-signals"></i> Help</a>#}
+                            {#</li>#}
+                            <li class="bg-master-lighter">
+                                <a href="{{ path("fos_user_security_logout") }}" class="clearfix">
+                                    <span class="pull-left">Déconnecter</span>
+                                    <span class="pull-right"><i class="pg-power"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page-content-wrapper ">
+            <div class="content sm-gutter">
+                <div class="container">
+                    {% block body %}
+                    {% endblock %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset ('assets/vendor/popper.js/umd/popper.min.js') }}"> </script>
+<script src="{{ asset ('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset ('assets/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+<script src="{{ asset ('assets/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset ('assets/js/front.js') }}"></script>
+{% block javascripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends './dashboard/dashboard.html.twig' %}
+
+{% block javascripts %}
+    <!-- Load jQuery from Google's CDN if needed -->
+    {{ parent() }}
+
+{% endblock %}
+{% block body %}
+    <div id="div_chart"></div>
+    <div id="div_histo"></div>
+    <script src="{{ asset('assets/js/loader.js') }}"></script>
+    <script type="text/javascript">
+        {{ gc_draw(scatter, 'div_chart') }}
+    </script>
+    <script type="text/javascript">
+        {{ gc_draw(histo, 'div_histo') }}
+    </script>
+{% endblock %}

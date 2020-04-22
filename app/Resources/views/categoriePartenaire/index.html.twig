@@ -1,0 +1,84 @@
+{% extends './dashboard/dashboard.html.twig' %}
+{% block javascripts %}
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <style href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></style>
+    <script>
+
+        $(function () {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+{% block body %}
+    <h1>Tous les catégories de partenariat</h1>
+    <div class="row">
+        <div class="align-left">
+            <a class="btn btn-primary" href="{{ path('categorie_partenaire_new') }}">Ajouter</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                           aria-describedby="example2_info">
+                        <thead>
+                        <tr role="row">
+                            <th>Id</th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">Libelle
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">Description
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">Nombre de partenaire
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for c in categoriesPartenaires %}
+                            <tr role="row" class="even">
+                                <td><a href="{{ path('categorie_partenaire_show', { 'id': c.id }) }}">
+                                        {% if c.cover %}
+                                        <img style="height: 50px; width:50px;" src="{{ asset('uploads/categoriePartenariat/photo/' ~ c.cover) }}"/>
+                                        {% else %}
+                                            <img style="height: 50px; width:50px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>{{ c.libelle }}</td>
+                                <td>{{ c.description | raw}}</td>
+                                <td>{{ c.partenaires | length }}</td>
+                                <td>
+                                    <a class="btn btn-danger" href="{{ path('categorie_partenaire_delete', { 'id': c.id }) }}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <a class="btn btn-secondary" href="{{ path('categorie_partenaire_show', { 'id': c.id }) }}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-success" href="{{ path('categorie_partenaire_edit', { 'id': c.id }) }}">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

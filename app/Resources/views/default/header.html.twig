@@ -1,0 +1,88 @@
+<header class="header">
+    <div class="topbar">
+        <div class="container">
+            <div class="topbar__content row">
+                <div class="col-md-4 ml-auto d-md-block d-none">
+                    <form class="topbar__search">
+                        <div class="input-group"><span class="input-group-btn">
+                    <button type="button" class="btn"><i class="fa fa-search"></i></button></span>
+                            <input type="text" placeholder="SEARCH" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-5 topbar__logo"><a href="{{ path('homepage') }}">
+                        <img src="{{ asset('assets/img/logo.png') }}" alt=""
+                             class="topbar__logo__normal d-none d-md-inline-block">
+                        <img src="{{ asset('assets/img/logo-small.png') }}" alt=""
+                             class="topbar__logo__small d-inline-block d-md-none"></a>
+                </div>
+                    <div class="col-md-2 topbar__cart"><a href="basket.html" class="btn btn-outline-dark">
+                            <i class="fa fa-shopping-cart"></i><span>3 Items in cart</span></a>
+                    </div>
+                    <ul class="col-md-1 nav-item dropdown" style="margin-top: 44px;text-align: left;">
+                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                            <i class="fa fa-2x fa-cog" style="color: black;"></i>
+                            <span class="badge badge-warning navbar-badge"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"
+                             style="left: inherit; right: 0px;">
+                            {% if app.user %}
+                                {% if is_granted('ROLE_MANAGER') == false %}
+
+                                    <a href="{{ path('client_index') }}"
+                                       class="clearfix bg-master-lighter dropdown-item">
+                                        <span class="pull-left">
+                                            <i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</span>
+                                    </a>
+                                {% endif %}
+                                    <a href="{{ path('fos_user_security_logout') }}"
+                                       class="clearfix bg-master-lighter dropdown-item">
+                                        <span class="pull-left">
+                                            <i class="fa  fa-sign-out" aria-hidden="true"></i>Logout</span>
+                                    </a>
+                            {% endif %}
+                            {% if app.user==null %}
+                                <a class="clearfix bg-master-lighter dropdown-item"
+                                   href="{{ path('fos_user_registration_register') }}">
+                                    <i class="fa  fa-rocket" aria-hidden="true"></i> Register</a><br>
+                                <a class="clearfix bg-master-lighter dropdown-item"
+                                   href="{{ path('fos_user_security_login') }}">
+                                    <i class="fa  fa-sign-in" aria-hidden="true"></i>Login</button>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</header>
+{% if app.user %}
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container d-flex justify-content-center">
+        <button type="button" data-toggle="collapse" data-target=".collapsed-search" class="navbar-toggler btn btn-outline-dark"><i class="fa fa-search"></i><span class="sr-only">Toggle navigation</span></button><a href="basket.html" class="navbar-toggler btn btn-outline-dark"><i class="fa fa-shopping-cart"></i><span class="d-none d-lg-block">3 Items in cart</span></a>
+        <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn btn-outline-dark"><i class="fa fa-align-justify"></i><span class="sr-only">Toggle navigation</span></button>
+        <div id="navigation" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav mx-auto">
+                <li class="nav-item"><a href="category.html" class="nav-link">Shop</a></li>
+                <li class="nav-item"><a href="{{ path('evenement_index') }}" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="{{ path('becomePartner') }}" class="nav-link">Become partner</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+        <div class="collapsed-search collapse">
+            <form>
+                <div class="input-group">
+                    <input type="text" placeholder="Search" class="form-control">
+                    <div class="input-group-append">
+                        <button type="button" class="btn outline-dark"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
+{% endif %}
+<!-- /.navbar-->

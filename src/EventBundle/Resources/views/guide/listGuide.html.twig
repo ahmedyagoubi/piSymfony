@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="col-lg-12">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('evenement_index') }}">Events</a></li>
+                <li class="breadcrumb-item">Guide List</li>
+            </ol>
+        </nav>
+        <div class="row page-top">
+            <div class="col-md-10 mx-auto">
+                <h1>Guide List</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <form method="get" action="https://demo.bootstrapious.com/hunter/2-0-1/checkout1.html">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th colspan="2">GUIDE</th>
+                        <th>TELEPHONE</th>
+                        <th>MAIL</th>
+                        <th>EVENT NAME</th>
+                        <th>EVENT TYPE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for g in guides %}
+                    <tr>
+                        <td><a href=""><img width="50px" src="{{ asset('eventsImage/' ~ g.evenement.image) }}" alt="White Blouse Armani"></a></td>
+                        <td><a href="">{{ g.nom }} {{ g.prenom }}</a></td>
+                        <td>{{ g.tel }}</td>
+                        <td>{{ g.mail }}</td>
+                        <td>{{ g.evenement.nomEvenement }}</td>
+                        <td>{{ g.eventType }}</td>
+                        <td>
+                            {% if app.user == g.evenement.responsable  %}
+                                <a href="{{ path ('edit_guide',{'id':g.id}) }}" class="btn btn-breez btn-sm">Edit
+                                    GUIDE</a>
+                                <a href="{{ path ('delete_guide',{'id':g.id}) }}"
+                                   class="btn btn-sm btn-border-think custom-color c-grey">Delete GUIDE</a>
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

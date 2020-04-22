@@ -1,0 +1,43 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {#<p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>#}
+    {#{% if targetUrl %}#}
+    {#<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>#}
+    {#{% endif %}#}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="main-slider" class="owl-carousel owl-theme">
+                    <div style="background-image: url({{ asset('assets/img/slider1.jpg') }});" class="item">
+                        <div class="content">
+                            <h3>The one and Only</h3>
+                            <h1>Hipster E-commerce Theme</h1>
+                            <p><img src="{{ asset('img/logo-white-small.png')}}" alt=""></p>
+                        </div>
+                    </div>
+                    <div style="background-image: url({{ asset('assets/img/slider2.jpg') }});" class="item">
+                        <div class="content">
+                            <h3>15 Pages Included</h3>
+                            <h3>Fully Responsive</h3>
+                            <h3>7 colour variants</h3>
+                            <h3>Based on Bootstrap 4.3.1</h3>
+                            <h3>SASS files included in the download</h3>
+                        </div>
+                    </div>
+                    <div style="background-image: url({{ asset('assets/img/slider3.jpg') }});" class="item">
+                        <div class="content">
+                            <h3>And much more!</h3>
+                            <p><img src="{{ asset('assets/img/logo-white-small.png') }}" alt=""></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /#main-slider-->
+            </div>
+        </div>
+    </div>
+
+{% endblock fos_user_content %}
+

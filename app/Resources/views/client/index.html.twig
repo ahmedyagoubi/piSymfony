@@ -1,0 +1,266 @@
+{% extends './dashboard/dashboard.html.twig' %}
+{% block javascripts %}
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <style href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></style>
+    <script>
+
+        $(function () {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class=" col-md-10">
+            <h1>Liste des clients</h1>
+        </div>
+        <div class=" col-md-2">
+            <a class="btn btn-primary" href="{{ path('client_new') }}">Ajouter</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6"></div>
+            </div>
+            <div class="row">
+
+                <div class="card col-md-12">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#all"
+                                                    data-toggle="tab">All</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#clients"
+                                                    data-toggle="tab">Clients</a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="#partenaire"
+                                                    data-toggle="tab">Partenaires</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="all">
+                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+                                   role="grid"
+                                   aria-describedby="example2_info">
+                                <thead>
+                                <tr role="row">
+                                    <th>Image</th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Nom
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Prenom
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Addresse
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">Telephone
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">Point de fidélité
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in all %}
+                                    <tr role="row" class="even">
+                                        <td><a href="{{ path('client_show', { 'id': user.id }) }}">
+                                                {% if user.image %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('uploads/user/photo/' ~ user.image) }}"/>
+                                                {% else %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                                {% endif %}
+                                            </a></td>
+                                        <td>{{ user.nom }}</td>
+                                        <td>{{ user.prenom }}</td>
+                                        <td>{{ user.addresse }}</td>
+                                        <td>{{ user.telephone }}</td>
+                                        <td>{{ user.ptFidelite }}</td>
+                                        <td>
+                                            <a class="btn btn-danger"
+                                               href="{{ path('client_delete', { 'id': user.id }) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                            <a class="btn btn-secondary"
+                                               href="{{ path('client_show', { 'id': user.id }) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-success"
+                                               href="{{ path('client_edit', { 'id': user.id }) }}">
+                                                <i class="fa fa-pen"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+
+                        </div>
+                        <div class="tab-pane" id="clients">
+                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+                                   role="grid"
+                                   aria-describedby="example2_info">
+                                <thead>
+                                <tr role="row">
+                                    <th>Image</th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Nom
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Prenom
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Addresse
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">Telephone
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">Points Fid
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in clients %}
+                                    <tr role="row" class="even">
+                                        <td>
+                                            <a href="{{ path('client_show', { 'id': user.id }) }}">
+                                                {% if user.image %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('uploads/user/photo/' ~ user.image) }}"/>
+                                                {% else %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                                {% endif %}
+                                            </a>
+                                        </td>
+                                        <td>{{ user.nom }}</td>
+                                        <td>{{ user.prenom }}</td>
+                                        <td>{{ user.addresse }}</td>
+                                        <td>{{ user.telephone }}</td>
+                                        <td>{{ user.ptFidelite }}</td>
+                                        <td>
+                                            <a class="btn btn-danger"
+                                               href="{{ path('client_delete', { 'id': user.id }) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                            <a class="btn btn-secondary"
+                                               href="{{ path('client_show', { 'id': user.id }) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-success"
+                                               href="{{ path('client_edit', { 'id': user.id }) }}">
+                                                <i class="fa fa-pen"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="partenaire">
+                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+                                   role="grid"
+                                   aria-describedby="example2_info">
+                                <thead>
+                                <tr role="row">
+                                    <th>Image</th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Nom
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Prenom
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        Addresse
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">Telephone
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">Categories partenaires
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in partenaires %}
+                                    <tr role="row" class="even">
+                                        <td><a href="{{ path('client_show', { 'id': user.id }) }}">
+                                                {% if user.image %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('uploads/user/photo/' ~ user.image) }}"/>
+                                                {% else %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                                {% endif %}
+                                            </a></td>
+                                        <td>{{ user.nom }}</td>
+                                        <td>{{ user.prenom }}</td>
+                                        <td>{{ user.addresse }}</td>
+                                        <td>{{ user.telephone }}</td>
+                                        <td>{{ user.categorie }}</td>
+                                        <td>
+                                            <a class="btn btn-danger"
+                                               href="{{ path('client_show', { 'id': user.id }) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                            <a class="btn btn-secondary"
+                                               href="{{ path('client_show', { 'id': user.id }) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-success"
+                                               href="{{ path('client_show', { 'id': user.id }) }}">
+                                                <i class="fa fa-pen"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

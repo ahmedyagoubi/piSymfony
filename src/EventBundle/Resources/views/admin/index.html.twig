@@ -1,0 +1,112 @@
+{% extends './dashboard/dashboard.html.twig' %}
+{% block javascripts %}
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <style href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></style>
+    <script>
+
+        $(function () {
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class=" col-md-10">
+            <h1>Liste des Evenements</h1>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6"></div>
+            </div>
+            <div class="row">
+
+                <div class="card col-md-12">
+
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="all">
+                            <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+                                   role="grid"
+                                   aria-describedby="example2_info">
+                                <thead>
+                                <tr role="row">
+                                    <th>Image</th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        title
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        owner
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending" aria-sort="descending">
+                                        places
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">start date
+                                    </th>
+                                    <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1"
+                                        colspan="1"
+                                        aria-label="Browser: activate to sort column ascending"
+                                        aria-sort="descending">end date
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for event in events %}
+                                    <tr role="row" class="even">
+                                        <td><a href="{{ path('evenement_detail', { 'id': event.id }) }}">
+                                                {% if event.image %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('eventsImage/' ~ event.image) }}"/>
+                                                {% else %}
+                                                    <img style="height: 50px; width:50px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                                {% endif %}
+                                            </a></td>
+                                        <td>{{ event.nomEvenement }}</td>
+                                        <td>{{ event.responsable.username }}</td>
+                                        <td>{{ event.nbreplace }}</td>
+                                        <td>{{ event.dateDebut|date() }}</td>
+                                        <td>{{ event.dateFin|date() }}</td>
+
+
+                                        <td>
+                                            <a class="btn btn-danger"
+                                               href="{{ path('evenement_admin_delete', { 'id': event.id }) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                            <a class="btn btn-secondary"
+                                               href="{{ path('evenement_detail', { 'id': event.id }) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

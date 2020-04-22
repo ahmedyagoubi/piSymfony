@@ -1,0 +1,63 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{#<body class="fixed-header ">#}
+{#{% if error %}#}
+{#<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#{% endif %}#}
+<div class="fixed-header pgn-wrapper" data-position="top">
+    {% if error %}
+        <div class="pgn push-on-sidebar-open pgn-bar">
+            <div class="alert alert-danger">
+                <div class="container">
+                <span>
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                </span>
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span
+                                class="sr-only">Close</span></button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<div class=" row">
+    <div class="bg-pic col-md-6 full-height">
+        <img src="{{ asset('assets/img/slider2.jpg') }}"
+             style="width: 900px;height: 500px;"
+             class="lazy">
+    </div>
+
+    <div class="login-container bg-white col-md-6">
+        <img src="{{ asset('assets/img/logo.png') }}" alt="logo" width="150" height="150">
+        <p class="p-t-35">Connectez-vous</p>
+
+
+        <form action="{{ path("fos_user_security_check") }}" method="post" class="p-t-15">
+
+            {% if csrf_token %}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+            {% endif %}
+
+            <div class="form-group form-group-default">
+                <label for="username">Pseudo</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"
+                       required="required"/>
+            </div>
+            <div class="form-group form-group-default">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="_password" required="required"/>
+            </div>
+            <div class="row">
+                <div class="col-md-6 no-padding">
+                    <div class="checkbox ">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                        <label for="remember_me">Se souvenir de moi</label>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary btn-cons m-t-10" id="_submit" name="_submit"
+                   value="Se connecter"/>
+        </form>
+
+    </div>
+</div>

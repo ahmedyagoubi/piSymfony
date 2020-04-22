@@ -1,0 +1,211 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<!-- /.navbar-->
+<div class="container">
+    <div class="row"> </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('evenement_index') }}">Events</a></li>
+                    <li aria-current="page" class="breadcrumb-item active">{{ event.nomEvenement }}</li>
+                </ol>
+            </nav>
+            <div class="row page-top">
+                <div class="col-md-8 mx-auto text-center">
+                    <h1>{{ event.nomEvenement }}</h1>
+                    <p class="author-date-top">By <a href="#">{{ event.responsable.username }}</a> |  {{ event.dateCreation |date("F d, Y") }}</p>
+                    <p class="lead text-muted">    {{ event.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div id="blog-post" class="col-lg-9">
+            <div id="post-content">
+                <p><img src="{{ asset('eventsImage/' ~ event.image) }}" alt="Example blog post alt" class="img-fluid"></p>
+                <h2>Event Location</h2>
+                <ol>
+                    <li>Address: {{ event.adr }}</li>
+                    <li>City: {{ event.ville }}
+                    </li>
+                    <li>Post Code: {{ event.code }}
+                    </li>
+                </ol>
+
+                <blockquote class="blockquote">
+                    <p class="mb-0">
+                        we will start in {{ event.dateDebut |date() }} and close in
+                        {{ event.dateFin |date() }} , we have {{ event.nbreplace }} place available and our event type is {{ event.type }}
+                    </p>
+                </blockquote>
+
+            </div>
+
+        </div>
+        <!-- /.col-md-9-->
+        <div class="col-md-3">
+            <div class="card card-default sidebar-menu">
+                <div class="card-heading">
+                    <h5 class="card-title">What can I do ??</h5>
+                </div>
+                <div class="card-body">
+                    <div aria-orientation="vertical" class="nav flex-column nav-pills">
+                        {% if app.user == event.responsable %}
+                            <li>
+                                <a href="{{ path ('list_participate',{'id':event.id}) }}">List Participant</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path ('create_guide', {'id': event.id}) }}" class="nav-link">Create
+                                    guide</a>
+                            </li>
+
+
+                            <li>
+                                <a href="{{ path ('list_guide') }}" class="nav-link">Consult list
+                                    guides</a>
+                            </li>
+                            <li>
+                                <a href="" class="nav-link" data-toggle="modal" data-target="#myModal2">Edit {{ event.nomEvenement }}</a>
+
+                            </li>
+                            <!-- Modal -->
+                            <div id="myModal2" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="ui-block" id="entitiesNav2">
+
+                                                    <div class="row text-center mb-5">
+                                                        <div class="col-lg-12">
+                                                            <div class="heading">
+                                                                <h2>Event form</h2>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-8 mx-auto">
+                                                            <form method="post" enctype='multipart/form-data'>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="firstname">Event Name</label>
+                                                                        <input class='form-control' type="text" name="nomEvenement" id="nomEvenement" placeholder="event name"
+                                                                               value="{{ event.nomEvenement }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="lastname">Event Type</label>
+                                                                        <select class='form-control' name="type" id="type" value="{{ event.type }}">
+                                                                            <option value="Aventure">Aventure</option>
+                                                                            <option value="Culture">Culture</option>
+                                                                            <option value="Sport">Sport</option>
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">Address</label>
+                                                                        <input class='form-control' type="text" name="adr" id="adr" placeholder="Addresse" value="{{ event.adr }}"><br>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">City</label>
+                                                                        <input class='form-control' type="text" name="ville" id="adr" placeholder="Addresse"
+                                                                               value="{{ event.ville }}"><br>                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">Places</label>
+                                                                        <input class='form-control' type="number" name="nbreplace" id="nbreplace" placeholder="Nombre de place"
+                                                                               value="{{ event.nbreplace }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">code postal</label>
+                                                                        <input class='form-control' type="number" id="code" name="code" placeholder="Code" value="{{ event.Code }}"><br>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">Start date</label>
+                                                                        <input class='form-control' type="date" name="dateDebut" id="dateDebut"
+                                                                               value="{{ event.dateDebut|date("Y-m-d") }}">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">End Date</label>
+                                                                        <input class='form-control' type="date" name="dateFin" id="dateFin" value="{{ event.dateFin|date("Y-m-d") }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">Image</label>
+                                                                        <input class='form-control' type="file" accept="image/jpeg" name="image" id="image">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="message">Description about the event</label>
+                                                                        <textarea type="text" name="description" id="desription" placeholder="Description"
+                                                                                  class="form-control" rows="5"> {{ event.description }}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <button type="submit" class="btn btn-outline-primary"><i class="fa fa-check"></i>Edit {{ event.nomEvenement }}</button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.row-->
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.row-->
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <li>
+                                <a href="{{ path('event_supprimerpage',{id:event.id}) }}" class="nav-link">Delete {{ event.nomEvenement }}</a>
+
+                            </li>
+
+                        {% else %}
+                            <li>
+                                <a href="{{ path('participer',{id:event.id}) }}" class="nav-link">Participate</a>
+
+                            </li>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="banner"><a href="category.html"><img src="img/banner.jpg" alt="" class="img-fluid"></a></div>
+        </div>
+        <!-- /.col-md-3-->
+    </div>
+</div>
+
+{% endblock %}

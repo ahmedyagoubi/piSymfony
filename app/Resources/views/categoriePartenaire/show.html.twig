@@ -1,0 +1,125 @@
+{% extends './dashboard/dashboard.html.twig' %}
+{% block javascripts %}
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <style href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></style>
+    <script>
+
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#table').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+{% block body %}
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <a href="{{ path('categorie_partenaire_index') }}">
+                    <button class="pull-right btn-secondary"><i class="fa fa-backward"></i> Retour à la liste</button>
+                </a>&nbsp;
+                <a href="{{ path('categorie_partenaire_delete', { 'id': c.id } ) }}">
+                    <button class="pull-right btn-danger"><i class="fa fa-modal"></i> Supprimer</button>
+                </a>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                {% if c.cover %}
+                                    <img style="height: 200px; width:200px;" src="{{ asset('uploads/categoriePartenariat/photo/' ~ c.cover) }}"/>
+                                {% else %}
+                                    <img style="height: 200px; width:200px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                {% endif %}
+                            </div>
+
+                            <h3 class="profile-username text-center">Carte Categorie partenaire</h3>
+
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>libelle</b> <a class="float-right">{{ c.libelle }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Description</b> <a class="float-right">{{ c.description | raw }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Nombre de partenaire</b> <a class="float-right">{{ c.partenaires | length }}</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Partenaire(s)</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#modifier" data-toggle="tab">Modifier partenariat</a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <div class="card">
+                                        <div class="card-body p-0">
+                                            <table  id="table"  class="table table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th>Nom</th>
+                                                    <th>Prénom</th>
+                                                    <th>Addresse</th>
+                                                    <th>Téléphone</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for user in c.partenaires %}
+                                                    <tr role="row" class="even">
+                                                        <td>{{ user.id }}</td>
+                                                        <td>{{ user.nom }}</td>
+                                                        <td>{{ user.prenom }}</td>
+                                                        <td>{{ user.addresse }}</td>
+                                                        <td>{{ user.telephone }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="modifier">
+                                    {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
+                                    {{ form_start(edit_form) }}
+                                    {{ form_widget(edit_form) }}
+                                    <input class="btn-success" type="submit" value="Edit"/>
+                                    {{ form_end(edit_form) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

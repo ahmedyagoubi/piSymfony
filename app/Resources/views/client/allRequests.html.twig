@@ -1,0 +1,88 @@
+{% extends './dashboard/dashboard.html.twig' %}
+{% block javascripts %}
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <style href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"></style>
+    <script>
+
+        $(function () {
+            $('#allPartenaires').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+{% block body %}
+    <h1>Liste des de demande de partenaréat</h1>
+    <div class="card-body">
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+                <div class="col-sm-12 col-md-6"></div>
+                <div class="col-sm-12 col-md-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="allPartenaires" class="table table-bordered table-hover dataTable dtr-inline" role="grid"
+                           aria-describedby="example2_info">
+                        <thead>
+                        <tr role="row">
+                            <th>Id</th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">nom
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">prenom
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">ptFidelite
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">date
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">categorie
+                            </th>
+                            <th class="sorting_desc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+                                aria-label="Browser: activate to sort column ascending" aria-sort="descending">status
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in allReq %}
+                            <tr role="row" class="even">
+                                <td><a href="{{ path('client_show', { 'id': p.id }) }}">
+                                        {% if p.client.image %}
+                                            <img style="height: 50px; width:50px;" src="{{ asset('uploads/user/photo/' ~ p.client.image) }}"/>
+                                        {% else %}
+                                            <img style="height: 50px; width:50px;" src="{{ asset('assets/img/NA.png') }}"/>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>{{ p.client.nom }}</td>
+                                <td>{{ p.client.prenom }}</td>
+                                <td>{{ p.client.ptFidelite }}</td>
+                                <td>{{ p.date | date }}</td>
+                                <td>{{ p.categorie.libelle }}</td>
+                                <td>{{ p.status }}</td>
+                                <td>
+                                    <a class="btn btn-danger" href="{{ path('client_archiver', { 'id': p.id }) }}">
+                                        <i class="fa fa-archive"></i>
+                                    </a>
+                                    <a class="btn btn-success" href="{{ path('client_confirme', { 'id': p.id }) }}">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

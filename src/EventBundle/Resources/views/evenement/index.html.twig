@@ -1,0 +1,445 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!-- /.navbar-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                    <li class="breadcrumb-item">Events</li>
+
+                </ol>
+            </nav>
+            <div class="row page-top">
+                <div class="col-md-8 mx-auto">
+                    <h1>Create and Manage Events</h1>
+                    <p class="text-muted">
+                        Welcome to your personal planner assistant. Here you’ll see all your next events and
+                        invites that your
+                        friends sent you. You can create 3 different types of events: Personal (for your daily
+                        errands), Private
+                        (for you and friends only) and Public (open to everyone). Create your events, invite
+                        friends and have fun!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+
+            {% for e in evenements %}
+                    <div class="col-md-5">
+                        <div class="post mb-5">
+                        <h2><a href="{{ path('evenement_detail',{id:e.id}) }}">{{ e.nomEvenement }}</a></h2>
+                        <p class="author-category">By <a href="#">{{ e.responsable }}</a> From <a href="{{ path('evenement_detail',{id:e.id}) }}">{{ e.dateDebut | date('F d , Y') }}</a></p>
+                        <p class="date-comments"><span style="color: black">To</span> <a href="{{ path('evenement_detail',{id:e.id}) }}"><i class="fa fa-calendar-o"></i>{{ e.dateFin | date('F d , Y') }}</a><span style="color: black">In</span><a href="{{ path('evenement_detail',{id:e.id}) }}"><i class="fa fa-home">  {{ e.ville }}</i></a></p>
+                        <div class="image"><a href="{{ path('evenement_detail',{id:e.id}) }}"><img src="{{ asset('eventsImage/' ~ e.image) }}" alt="Fashion now" class="img-fluid"></a></div>
+                        <p class="post-intro">
+                            {{ e.description }}</p>
+                        <p class="read-more"><a href="{{ path('evenement_detail',{id:e.id}) }}" class="btn btn-outline-primary">More Details</a></p>
+                        </div>
+                    </div>
+            {% endfor %}
+            </div>
+        </div>
+        <!-- /.col-lg-9-->
+        <div class="col-lg-3">
+            <div class="card card-default sidebar-menu">
+                <div class="card-heading">
+                    <h5 class="card-title">What can i do ??</h5>
+                </div>
+                <div class="card-body">
+                    <div aria-orientation="vertical" class="nav flex-column nav-pills">
+                        <li>
+                            <a href="" class="nav-link" data-toggle="modal" data-target="#myModal">Open Calendar</a>
+
+                        </li>
+                        <!-- Modal -->
+                        <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Events Calendar</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="ui-block" id="entitiesNav2">
+                                                {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <li>
+                            <a href="" class="nav-link" data-toggle="modal" data-target="#myModal2">add Event</a>
+
+                        </li>
+                        <!-- Modal -->
+                        <div id="myModal2" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="ui-block" id="entitiesNav2">
+
+                                                <div class="row text-center mb-5">
+                                                    <div class="col-lg-12">
+                                                        <div class="heading">
+                                                            <h2>Event form</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-8 mx-auto">
+                                                        {{ form_start(form) }}
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="firstname">Event Name</label>
+                                                                        {{ form_widget(form.nomEvenement, { 'attr': {'class': 'form-control'} }) }}                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="lastname">Event Type</label>
+                                                                        {{ form_widget(form.type, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">Address</label>
+                                                                        {{ form_widget(form.adr, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">City</label>
+                                                                        {{ form_widget(form.ville, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="email">Places</label>
+                                                                        {{ form_widget(form.nbreplace, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">code postal</label>
+                                                                        {{ form_widget(form.code, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">Start date</label>
+                                                                        {{ form_widget(form.dateDebut, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="subject">End Date</label>
+                                                                        {{ form_widget(form.dateFin, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                {{ form_widget(form.image, { 'attr': {'class': 'form-control'} }) }}
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="message">Description about the event</label>
+                                                                        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 text-center">
+                                                                    <button type="submit" class="btn btn-outline-primary"><i class="fa fa-check"></i> Create Event</button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.row-->
+                                                        {{ form_end(form) }}
+                                                    </div>
+                                                </div>
+                                                <!-- /.row-->
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <li>
+                            <a href="" class="nav-link" data-toggle="modal" data-target="#myModal3">My Events</a>
+                        </li>
+                        <!-- Modal -->
+                        <div id="myModal3" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="ui-block" id="entitiesNav2">
+
+                                                <div class="col-lg-12">
+                                                    <div class="heading">
+                                                        <h2>My Event</h2>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th colspan="2">event</th>
+                                                            <th>star date</th>
+                                                            <th>end date</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for e in myevents %}
+                                                            <tr>
+                                                                <td><a href="{{ path('evenement_detail',{id:e.id}) }}"><img width="50px" src="{{ asset('eventsImage/' ~ e.image) }}" alt="White Blouse Armani"></a></td>
+                                                                <td><a href="{{ path('evenement_detail',{id:e.id}) }}">{{ e.nomEvenement }}</a></td>
+                                                                <td>{{ e.dateDebut |date() }}</td>
+                                                                <td>{{ e.dateFin |date() }}</td>
+                                                                <td>
+                                                                    <li class="nav-item dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle"><i class="fa fa-cogs"></i> <b class="caret"></b></a>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li>
+                                                                                <a href="{{ path ('event_supprimerpage',{'id':e.id}) }}">Delete
+                                                                                    Event</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="{{ path ('create_guide', {'id': e.id}) }}">Create
+                                                                                    guide</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="{{ path ('list_participate',{'id':e.id}) }}">List Participant</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- /.row-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <li><a href="{{ path ('MyParticipate') }}" class="nav-link">My Participations</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="banner"><a href=""><img src="{{ asset('assets/') }}img/banner.jpg" alt="" class="img-fluid"></a></div>
+        </div>
+        <!-- /.col-lg-3-->
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+
+        $(function () {
+            $('#calendar-holder').fullCalendar({
+                header: {
+                    left: 'prev, next',
+                    center: 'title',
+                    right: 'month, basicWeek, basicDay,'
+                },
+
+
+                lazyFetching: true,
+                timeFormat: {
+                    agenda: 'h:mmt',
+                    '': 'h:mmt'
+                },
+
+                eventSources: [
+                    {
+                        //type json : ya5o elcontenu mt3 basededonne wi7oto fi json  exemple{"title":"Annimatioon","start":"2018-01-03T00:00:00+01:00","allDay":true,"editable":true,"startEditable":true,"durationEditable":true,"overlap":true,"id":9,"end":"2018-01-04T00:00:00+01:00"},
+                        url: "../full-calendar/load",
+                        type: 'POST',
+                        color: 'bleu',   // an option!
+                        textColor: 'white',// an option!
+                        data: {},
+                        error: function () {
+                        }
+                    }
+                ],
+
+
+                eventClick: function (calEvent, jsEvent, view) {
+
+
+                    window.location.href = "http://localhost/ahmed/web/app_dev.php/event/detail/" + calEvent.id
+
+
+                },
+                //changer date
+                eventDrop: function (calEvent, jsEvent, view) {
+                    var start = calEvent.start;
+                    var end = calEvent.end;
+                    var user = {{ app.user.id }}
+
+
+                    var opt = {
+                        autoOpen: true,
+                        modal: true,
+
+                        width: 250,
+                        height: 150,
+
+                    };
+
+
+                    if (!confirm("Voulez vous changer la date")) {
+
+                        revertFunc();
+
+                    } else {
+
+
+//objet json l envoi frontend jaascript w backend php
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('date') }}",
+                            data: {
+                                "event": calEvent.title,
+                                "datedebut": start.format(),
+                                "datefin": end.format(),
+                                "user": user
+                            },
+                            success: function (data) {
+                                $.noConflict();
+                                if (data == "yes") {
+
+                                    console.log(data)
+
+                                    $(function () {
+                                        $("#dialog").dialog(opt);
+                                        $("#dialog").dialog("open");
+
+                                        // $("#btn").click(function() {
+                                        //    $("#dialog").dialog('close');
+                                        // });
+                                    });
+
+
+                                } else {
+                                    alert("no");
+                                    revertFunc();
+                                }
+
+
+                            },
+                            error: function () {
+                                revertFunc();
+                            }
+                        });
+
+                    }
+
+                },
+
+                //eventClick : function (event , jsEvent , view) {
+                //    $.getScript( "{{ path('evenement_new') }}" , function () {
+
+                //  })
+
+                // },
+
+
+                //revertfunc if the ajx call should fail
+                //changer duree
+                eventResize: function (event, delta, revertFunc) {
+
+                    var start = event.start;
+                    var end = event.end;
+
+                    if (!confirm("Voulez vous changer la duree")) {
+
+                        revertFunc();
+
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('date') }}",
+                            data: {
+                                "event": event.title,
+                                "datedebut": start.format(),
+                                "datefin": end.format(),
+                                "user": {{ app.user.id }}
+                            },
+                            success: function (data) {
+                                if (data == "yes") {
+                                    console.log(data)
+                                    $(function () {
+                                        $("#dialog").dialog(opt);
+                                        $("#dialog").dialog("open");
+
+
+                                    });
+
+                                } else {
+                                    alert("no");
+                                    revertFunc();
+                                }
+                            },
+                            error: function () {
+                                revertFunc();
+                            }
+                        });
+                    }
+
+                },
+
+
+            });
+
+        });
+
+
+    </script>
+{% endblock %}
+
